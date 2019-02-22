@@ -1,28 +1,24 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import { ButtonOption, ButtonSelect } from './components/button-select';
 
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+function App() {
+  const [framework, setFramework] = React.useState('');
+
+  return (
+    <div className="App">
+      <div className="container">
+        <dl>
+          <dt>framework</dt>
+          <dd>{framework}</dd>
+        </dl>
+        <ButtonSelect value={framework} onChangeValue={setFramework}>
+          <ButtonOption value="ng">Angular</ButtonOption>
+          <ButtonOption value="react">React</ButtonOption>
+          <ButtonOption value="vue">Vue</ButtonOption>
+        </ButtonSelect>
       </div>
-    );
-  }
+    </div>
+  );
 }
 
 export default App;
