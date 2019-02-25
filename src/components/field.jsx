@@ -5,42 +5,17 @@ let id = Date.now();
 
 const getId = () => id++;
 
-const FieldContext = React.createContext({
-  fieldId: '',
-  setFieldId: function() {}
-});
-
-export const Field = ({ children }) => {
+export const Field = ({ label, className, id, ...inputProps }) => {
   const defaultFieldId = React.useRef(getId());
-  const [fieldId, setFieldId] = React.useState(defaultFieldId.current);
 
   return (
-    <FieldContext.Provider value={{ fieldId, setFieldId }}>
-      <div className="form-group">{children}</div>
-    </FieldContext.Provider>
-  );
-};
-
-export const Label = props => {
-  const { fieldId } = React.useContext(FieldContext);
-
-  return <label htmlFor={fieldId} {...props} />;
-};
-
-export const Input = ({ className, ...props }) => {
-  const { fieldId, setFieldId } = React.useContext(FieldContext);
-
-  React.useEffect(() => {
-    if (props.id && props.id !== fieldId) {
-      setFieldId(props.id);
-    }
-  }, []);
-
-  return (
-    <input
-      id={fieldId}
-      className={classNames('form-control', className)}
-      {...props}
-    />
+      <div className="form-group">
+        {label && <label htmlFor={id || defaultFieldId}>{label}</label>}
+        <input 
+          className={classNames('form-control', className)} 
+          id={id || defaultFieldId} 
+          {...inputProps} 
+        />
+      </div>
   );
 };
