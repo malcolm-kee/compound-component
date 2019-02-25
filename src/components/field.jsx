@@ -3,17 +3,17 @@ import React from 'react';
 
 let id = Date.now();
 
-const getId = () => id++;
+const getId = () => `field-${id++}`;
 
 export const Field = ({ label, className, id, ...inputProps }) => {
   const defaultFieldId = React.useRef(getId());
 
   return (
       <div className="form-group">
-        {label && <label htmlFor={id || defaultFieldId}>{label}</label>}
+        {label && <label htmlFor={id || defaultFieldId.current}>{label}</label>}
         <input 
           className={classNames('form-control', className)} 
-          id={id || defaultFieldId} 
+          id={id || defaultFieldId.current} 
           {...inputProps} 
         />
       </div>
