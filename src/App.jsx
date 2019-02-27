@@ -11,10 +11,11 @@ function App() {
           <dt>email</dt>
           <dd>{email}</dd>
         </dl>
-        <Field 
-          label="Email" 
-          type="email" 
-          onChange={ev => setEmail(ev.target.value)} 
+        <Field
+          label="Email"
+          type="email"
+          onChange={ev => setEmail(ev.target.value)}
+          value={email}
         />
       </div>
     </div>
