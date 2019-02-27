@@ -42,7 +42,7 @@ export const Router = ({ children }) => {
 export const Route = ({ component: Component, path }) => {
   const { currentPath } = React.useContext(RouteContext);
 
-  if (currentPath !== path) {
+  if (path && currentPath !== path) {
     return null;
   }
 
@@ -66,4 +66,22 @@ export const Link = ({ to, children, replace }) => {
       {children}
     </a>
   );
+};
+
+export const Switch = ({ children }) => {
+  const { currentPath } = React.useContext(RouteContext);
+
+  let hasMatch = false;
+  let element;
+
+  React.Children.forEach(children, child => {
+    if (!hasMatch && React.isValidElement(child)) {
+      if (!child.props.path || currentPath === child.props.path) {
+        hasMatch = true;
+        element = child;
+      }
+    }
+  });
+
+  return hasMatch ? React.cloneElement(element) : null;
 };
